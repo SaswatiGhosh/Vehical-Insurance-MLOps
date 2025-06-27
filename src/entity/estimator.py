@@ -24,6 +24,7 @@ class MyModel:
     def predict(self, dataframe: pd.DataFrame):
         try:
             logging.info("Starting Prediction process.")
+            logging.info(dataframe.columns)
             transformed_feature= self.preprocessing_object.transform(dataframe)
             logging.info("Using the trained model to get predictions")
             predictions=self.trained_model_object(transformed_feature)

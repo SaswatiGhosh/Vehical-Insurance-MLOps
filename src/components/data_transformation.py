@@ -112,12 +112,12 @@ class DataTransformation:
             input_feature_train_df= self._map_gender_column(input_feature_train_df)
             input_feature_train_df=self._drop_id_columns(input_feature_train_df)
             input_feature_train_df=self._create_dummies(input_feature_train_df)
-            input_feature_train_df=self._rename_columns(input_feature_train_df)
+            # input_feature_train_df=self._rename_columns(input_feature_train_df)
 
             input_feature_test_df=self._map_gender_column(input_feature_test_df)
             input_feature_test_df=self._drop_id_columns(input_feature_test_df)
             input_feature_test_df=self._create_dummies(input_feature_test_df)
-            input_feature_test_df=self._rename_columns(input_feature_test_df)
+            # input_feature_test_df=self._rename_columns(input_feature_test_df)
 
             logging.info("Custom transformation applied to test and train data")
             logging.info("Starting data Transfromation!!")

@@ -63,8 +63,8 @@ class SimpleStorageService:
         
     def get_file_object(self, filename:str, bucket_name:str)-> Union[List[object], object]:
         try:
-            bucket_name=self.get_bucket(bucket_name)
-            file_objects=[file_object for file_object in Bucket.objects.filter(Prefix=filename)]
+            bucket=self.get_bucket(bucket_name)
+            file_objects=[file_object for file_object in bucket.objects.filter(Prefix=filename)]
             func=lambda x:x[0] if len(x) ==1 else x
             file_objs=func(file_objects)
             logging.info("Exited the get_file_object method of SimpleStorageService class")

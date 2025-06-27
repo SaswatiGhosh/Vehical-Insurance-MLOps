@@ -46,10 +46,13 @@ class ModelEvaluation:
     def _create_dummy_columns(self,df):
         logging.info("Creating dummy columns for categorical features")
         df=pd.get_dummies(df,drop_first=True)
+        logging.info(df.columns)
         return df
     
     def rename_columns(self,df):
+
         logging.info("Renaming columns to match the target column name")
+        logging.info(df.columns)
         df=df.rename(columns={
             "Vehicle_Age_< 1 Year" : "Vehicle_Age_lt_1_Year",
             "Vehicle_Age_> 2 Years" : "Vehicle_Age_gt_2_Years",
@@ -74,6 +77,7 @@ class ModelEvaluation:
             x=self._drop_id_column(x)
             x=self._create_dummy_columns(x)
             x=self.rename_columns(x)
+            print(x)
 
             trained_model= load_object(file_path=self.model_trainer_artifact.trained_model_file_path)
             logging.info("Trained model loaded/exist")
