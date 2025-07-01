@@ -24,10 +24,14 @@ class MyModel:
     def predict(self, dataframe: pd.DataFrame):
         try:
             logging.info("Starting Prediction process.")
+        #     dataframe=dataframe.rename(columns={
+        #     "Vehicle_Age_lt_1_Year" : "Vehical_Age_< 1 Year",
+        #     "Vehicle_Age_gt_2_Years":"Vehicle_Age_> 2_Years",
+        # })
             logging.info(dataframe.columns)
             transformed_feature= self.preprocessing_object.transform(dataframe)
             logging.info("Using the trained model to get predictions")
-            predictions=self.trained_model_object(transformed_feature)
+            predictions=self.trained_model_object.predict(transformed_feature)
             return predictions
         
         except MyException as e:

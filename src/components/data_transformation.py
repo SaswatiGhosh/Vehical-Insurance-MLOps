@@ -79,13 +79,13 @@ class DataTransformation:
     def _rename_columns(self,df):
         logging.info("Renaming columns as per schema and casting to int")
         df=df.rename(columns={
-            "Vehical_Age_< 1 Year" :"Vehicle_Age_lt_1_Years",
+            "Vehical_Age_< 1 Year" :"Vehicle_Age_lt_1_Year",
             "Vehicle_Age_> 2_Years":"Vehicle_Age_gt_2_Years",
         })
-        for col in["Vehicle_Age_lt_1_Years", "Vehicle_Age_gt_2_Years", "Vehicle_Damage_Yes"]:
+        for col in["Vehicle_Age_lt_1_Year", "Vehicle_Age_gt_2_Years", "Vehicle_Damage_Yes"]:
             if col in df.columns:
                 df[col]=df[col].astype('int')
-            return df
+        return df
         
     def _drop_id_columns(self,df):
         logging.info("Dropping 'id' columns")
@@ -108,27 +108,29 @@ class DataTransformation:
 
             input_feature_test_df= test_df.drop(columns=[TARGET_COLUMN],axis=1)
             target_feature_test_df= test_df[TARGET_COLUMN]
+            logging.info("Input and Target Cols defined for both train and test df")
 
             input_feature_train_df= self._map_gender_column(input_feature_train_df)
             input_feature_train_df=self._drop_id_columns(input_feature_train_df)
             input_feature_train_df=self._create_dummies(input_feature_train_df)
-            # input_feature_train_df=self._rename_columns(input_feature_train_df)
+            input_feature_train_df=self._rename_columns(input_feature_train_df)
 
             input_feature_test_df=self._map_gender_column(input_feature_test_df)
             input_feature_test_df=self._drop_id_columns(input_feature_test_df)
             input_feature_test_df=self._create_dummies(input_feature_test_df)
-            # input_feature_test_df=self._rename_columns(input_feature_test_df)
+            input_feature_test_df=self._rename_columns(input_feature_test_df)
 
             logging.info("Custom transformation applied to test and train data")
-            logging.info("Starting data Transfromation!!")
+            logging.info("Starting data Transformation!!")
             preprocessor= self.get_data_transformer_object()
             logging.info("Got the preprocessor object")
 
             logging.info("Initializing transformation fro training data")
             input_feature_train_arr= preprocessor.fit_transform(input_feature_train_df)
-            logging.info("Initiazliing transformation for testing data ")
+            logging.info("Initializing transformation for testing data ")
             input_feature_test_arr =preprocessor.transform(input_feature_test_df)
             logging.info("Transformation completed!!")
+            logging.info(input_feature_train_arr,input_feature_test_arr)
 
             logging.info("Applying SMOTTEENN for unhanding unbalanced dataset")
             smt=SMOTEENN(sampling_strategy='minority')
@@ -143,7 +145,7 @@ class DataTransformation:
             save_object(self.data_tranformation_config.transformed_object_file_path, preprocessor)
             save_numpy_array_data(self.data_tranformation_config.transformed_train_file_path, array=train_arr)
             save_numpy_array_data(self.data_tranformation_config.transformed_test_file_path, array=test_arr)
-            logging.info("Saving transformed objet and transformed files")
+            logging.info("Saving transformed object and transformed files")
             logging.info("Data Transformation completed!!")
             return DataTransformationArtifact(transformed_object_file_path=self.data_tranformation_config.transformed_object_file_path,
                                               transformed_train_file_path=self.data_tranformation_config.transformed_train_file_path,

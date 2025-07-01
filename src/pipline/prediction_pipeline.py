@@ -6,9 +6,7 @@ from pandas import DataFrame
 from src.exception import MyException
 
 class VehicleData:
-    def __init__(
-            self, Gender, Age, Driving_License, Region_Code, Previously_Insured, Annual_Premium, 
-            Policy_Sales_Channel,Vintage, Vehicle_Age_lt_1_Year,Vehicle_Age_gt_2_Years,Vehicle_Damage_Yes) :
+    def __init__(self, Gender, Age, Driving_License, Region_Code, Previously_Insured, Annual_Premium,Policy_Sales_Channel,Vintage, Vehicle_Age_lt_1_Year,Vehicle_Age_gt_2_Years,Vehicle_Damage_Yes) :
             try:
                 self.Gender=Gender
                 self.Age=Age
@@ -21,6 +19,7 @@ class VehicleData:
                 self.Vehicle_Age_lt_1_Year=Vehicle_Age_lt_1_Year
                 self.Vehicle_Age_gt_2_Years=Vehicle_Age_gt_2_Years
                 self.Vehicle_Damage_Yes=Vehicle_Damage_Yes
+                
             except Exception as e:
                  raise MyException(e,sys) from e
             
@@ -44,7 +43,7 @@ class VehicleData:
                 "Annual_Premium": [self.Annual_Premium],
                 "Policy_Sales_Channel": [self.Policy_Sales_Channel],
                 "Vintage": [self.Vintage],
-                "Vehicle_Age_lt_1_Year": [self.Vehicle_Age_lt_1_Year],
+                ".Vehicle_Age_lt_1_Year": [self.Vehicle_Age_lt_1_Year],
                 "Vehicle_Age_gt_2_Years": [self.Vehicle_Age_gt_2_Years],
                 "Vehicle_Damage_Yes": [self.Vehicle_Damage_Yes]
             }

@@ -28,11 +28,10 @@ class SimpleStorageService:
     def read_object(object_name:str,decode:bool=True, make_readable= False) -> Union[StringIO,str]:
         try:
             func=(
-                lambda: object_name.get()["Body"].read().decode()
-                if decode else object_name.get()["Body"].read()
+                lambda: object_name.get()["Body"].read().decode() if decode else object_name.get()["Body"].read()
             )
             conv_func= lambda: StringIO(func()) if make_readable else func()
-            logging.info("Exited the read_objec")
+            logging.info("Exited the read_object")
             return conv_func()
         except Exception as e:
             raise MyException(e,sys)

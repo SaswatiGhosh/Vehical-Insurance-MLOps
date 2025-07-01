@@ -52,14 +52,14 @@ class ModelEvaluation:
     def rename_columns(self,df):
 
         logging.info("Renaming columns to match the target column name")
-        logging.info(df.columns)
+        # logging(df.columns)
         df=df.rename(columns={
             "Vehicle_Age_< 1 Year" : "Vehicle_Age_lt_1_Year",
             "Vehicle_Age_> 2 Years" : "Vehicle_Age_gt_2_Years",
         })
-        for col in ["Vehicle_Age_lt_1_Year", "Vehicle_Age_gt_2_Years" , "Vehicle_Damage_Yes"]:
+        for col in ["Vehicle_Age_lt_1_Year", "Vehicle_Age_gt_2_Years"  , "Vehicle_Damage_Yes"]:
             df[col] = df[col].astype(int)
-            return df
+        return df
         
     def _drop_id_column(self,df):
         logging.info("Dropping 'id' column")
@@ -81,7 +81,13 @@ class ModelEvaluation:
 
             trained_model= load_object(file_path=self.model_trainer_artifact.trained_model_file_path)
             logging.info("Trained model loaded/exist")
+
+            # x_transformed = trained_model.preprocessing.transform(x)
+            # y_hat_trained_model = trained_model.model.predict(x_transformed)
+
+
             trained_model_f1_score=self.model_trainer_artifact.metric_artifact.f1_score
+            # trained_model_f1_score= f1_score(y, y_hat_trained_model)
             logging.info(f"f1_score for this model: {trained_model_f1_score}")
             best_model_f1_score=None
             best_model=self.get_best_model()

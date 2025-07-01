@@ -29,8 +29,7 @@ class ModelTrainer:
                 max_depth=self.model_trainer_config._max_depth,
                 min_samples_split=self.model_trainer_config._min_samples_split,
                 min_samples_leaf=self.model_trainer_config._min_samples_leaf,
-                criterion=self.model_trainer_config._criterion,
-
+                criterion=self.model_trainer_config._criterion
             )
             logging.info("Model Training going on..")
             model.fit(x_train,y_train)
